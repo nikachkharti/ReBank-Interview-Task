@@ -1,0 +1,6 @@
+@NetworkMarketingManagement.API_HostAddress = http://localhost:5249
+
+GET {{NetworkMarketingManagement.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
