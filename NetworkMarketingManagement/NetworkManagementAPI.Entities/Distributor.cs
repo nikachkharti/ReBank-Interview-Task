@@ -31,7 +31,15 @@ namespace NetworkManagementAPI.Entities
 
         public string Image { get; set; }
 
+        /// <summary>
+        /// Who is recomendator of current distributor while registration.
+        /// </summary>
         public int RecomendatorId { get; set; }
+
+        /// <summary>
+        /// How many recomendations distributor have.
+        /// </summary>
+        public int RecomendationsCount { get; set; }
 
         public virtual ICollection<PersonalIdentifier> PersonalIdentifiers { get; set; }
 
