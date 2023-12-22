@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetworkManagmentAPI.Data;
 
@@ -11,9 +12,11 @@ using NetworkManagmentAPI.Data;
 namespace NetworkManagmentAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222123712_DataSeed")]
+    partial class DataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,76 +235,6 @@ namespace NetworkManagmentAPI.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NetworkManagementAPI.Entities.DistributorSell", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DistributorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SellDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SellsCount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DistributorId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("DistributorSells");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DistributorId = 1,
-                            ProductId = 1,
-                            SellDate = new DateTime(2023, 12, 22, 17, 28, 15, 779, DateTimeKind.Local).AddTicks(4969),
-                            SellsCount = 1,
-                            TotalPrice = 1549m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DistributorId = 2,
-                            ProductId = 2,
-                            SellDate = new DateTime(2023, 12, 22, 17, 28, 15, 779, DateTimeKind.Local).AddTicks(4978),
-                            SellsCount = 3,
-                            TotalPrice = 4347m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DistributorId = 2,
-                            ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 22, 17, 28, 15, 779, DateTimeKind.Local).AddTicks(4980),
-                            SellsCount = 1,
-                            TotalPrice = 1449m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DistributorId = 3,
-                            ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 22, 17, 28, 15, 779, DateTimeKind.Local).AddTicks(4981),
-                            SellsCount = 2,
-                            TotalPrice = 5000m
-                        });
-                });
-
             modelBuilder.Entity("NetworkManagementAPI.Entities.PersonalIdentifier", b =>
                 {
                     b.Property<int>("Id")
@@ -395,63 +328,6 @@ namespace NetworkManagmentAPI.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NetworkManagementAPI.Entities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "cb58a2d8-47dd-452f-b7f3-f0343d14d431",
-                            Price = 1549m,
-                            Title = "Iphone 12"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "c5290d5a-77ff-4499-9975-ac8444b0375f",
-                            Price = 1449m,
-                            Title = "Iphone 11"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "1434be4d-9978-4305-98bc-d925c1561531",
-                            Price = 1349m,
-                            Title = "Iphone X"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Code = "5cb5caa3-2097-4cf3-8210-0bbe3996ce74",
-                            Price = 2500m,
-                            Title = "PS5"
-                        });
-                });
-
             modelBuilder.Entity("NetworkManagementAPI.Entities.Address", b =>
                 {
                     b.HasOne("NetworkManagementAPI.Entities.Distributor", "Distributor")
@@ -474,25 +350,6 @@ namespace NetworkManagmentAPI.Data.Migrations
                     b.Navigation("Distributor");
                 });
 
-            modelBuilder.Entity("NetworkManagementAPI.Entities.DistributorSell", b =>
-                {
-                    b.HasOne("NetworkManagementAPI.Entities.Distributor", "Distributor")
-                        .WithMany("DistributorSells")
-                        .HasForeignKey("DistributorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetworkManagementAPI.Entities.Product", "Product")
-                        .WithMany("DistributorSells")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Distributor");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("NetworkManagementAPI.Entities.PersonalIdentifier", b =>
                 {
                     b.HasOne("NetworkManagementAPI.Entities.Distributor", "Distributor")
@@ -510,14 +367,7 @@ namespace NetworkManagmentAPI.Data.Migrations
 
                     b.Navigation("ContactInfos");
 
-                    b.Navigation("DistributorSells");
-
                     b.Navigation("PersonalIdentifiers");
-                });
-
-            modelBuilder.Entity("NetworkManagementAPI.Entities.Product", b =>
-                {
-                    b.Navigation("DistributorSells");
                 });
 #pragma warning restore 612, 618
         }

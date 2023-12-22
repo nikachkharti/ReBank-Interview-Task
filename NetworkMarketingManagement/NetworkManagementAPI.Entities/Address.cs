@@ -19,5 +19,11 @@ namespace NetworkManagementAPI.Entities
         [Required]
         [MaxLength(100)]
         public string AddressName { get; set; }
+
+
+        [ForeignKey(nameof(Distributor))]
+        [Required]
+        public int DistributorId { get; set; }
+        public virtual Distributor Distributor { get; set; }
     }
 }

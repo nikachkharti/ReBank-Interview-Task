@@ -26,9 +26,11 @@ namespace NetworkManagementAPI.Entities
         public string DocumentNumber { get; set; }
 
         [Required]
+        [Column(TypeName = "Date")]
         public DateTime ReleaseDate { get; set; }
 
         [Required]
+        [Column(TypeName = "Date")]
         [ExpireDate(nameof(ReleaseDate))]
         public DateTime ExpireDate { get; set; }
 
