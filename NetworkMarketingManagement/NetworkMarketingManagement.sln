@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkManagementAPI.Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkManagmentAPI.Helper", "NetworkManagmentAPI.Helper\NetworkManagmentAPI.Helper.csproj", "{B3765BA7-B22F-44C4-944F-0E823A929AD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkManagmentAPI.Data", "NetworkManagmentAPI.Data\NetworkManagmentAPI.Data.csproj", "{C682FA11-6DED-4DDF-B7A4-09E1A386E0A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkManagmentAPI.Data", "NetworkManagmentAPI.Data\NetworkManagmentAPI.Data.csproj", "{C682FA11-6DED-4DDF-B7A4-09E1A386E0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkManagementAPI.Repository", "NetworkManagementAPI.Repository\NetworkManagementAPI.Repository.csproj", "{A9CF5FF0-735E-4B58-8737-FDF794722172}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C682FA11-6DED-4DDF-B7A4-09E1A386E0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C682FA11-6DED-4DDF-B7A4-09E1A386E0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C682FA11-6DED-4DDF-B7A4-09E1A386E0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9CF5FF0-735E-4B58-8737-FDF794722172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9CF5FF0-735E-4B58-8737-FDF794722172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9CF5FF0-735E-4B58-8737-FDF794722172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9CF5FF0-735E-4B58-8737-FDF794722172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
