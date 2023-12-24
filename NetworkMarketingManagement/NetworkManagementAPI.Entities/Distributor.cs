@@ -21,6 +21,8 @@ namespace NetworkManagementAPI.Entities
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+        [Column(TypeName = "nvarchar(50)")]
+        [EnumDataType(typeof(Gender))]
         /// <summary>
         /// Male - 1
         /// Female - 2

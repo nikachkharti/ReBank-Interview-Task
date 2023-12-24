@@ -10,6 +10,8 @@ namespace NetworkManagementAPI.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Column(TypeName = "nvarchar(50)")]
+        [EnumDataType(typeof(IdentityDocumentType))]
         /// <summary>
         /// ID Card - 1
         /// Passport - 2

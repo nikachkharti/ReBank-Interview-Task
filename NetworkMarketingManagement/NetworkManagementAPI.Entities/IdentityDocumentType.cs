@@ -1,8 +1,12 @@
-﻿namespace NetworkManagementAPI.Entities
+﻿using System.Runtime.Serialization;
+
+namespace NetworkManagementAPI.Entities
 {
     public enum IdentityDocumentType
     {
-        IDCard = 1,
-        Passport = 2
+        [EnumMember(Value = "IDCard")]
+        IDCard,
+        [EnumMember(Value = "Passport")]
+        Passport
     }
 }

@@ -1,9 +1,14 @@
-﻿namespace NetworkManagementAPI.Entities
+﻿using System.Runtime.Serialization;
+
+namespace NetworkManagementAPI.Entities
 {
     public enum Gender
     {
-        Male = 1,
-        Female = 2,
-        Other = 3
+        [EnumMember(Value = "Male")]
+        Male,
+        [EnumMember(Value = "Female")]
+        Female,
+        [EnumMember(Value = "Other")]
+        Other
     }
 }

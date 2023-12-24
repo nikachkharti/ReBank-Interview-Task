@@ -9,6 +9,8 @@ namespace NetworkManagementAPI.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Column(TypeName = "nvarchar(50)")]
+        [EnumDataType(typeof(ContactType))]
         [Required]
         /// <summary>
         /// Telephone - 1
