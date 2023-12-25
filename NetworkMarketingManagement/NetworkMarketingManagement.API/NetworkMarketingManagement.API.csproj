@@ -17,10 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\NetworkManagementAPI.Models\NetworkManagementAPI.Models.csproj" />
 	  <ProjectReference Include="..\NetworkManagementAPI.Repository\NetworkManagementAPI.Repository.csproj" />
 	  <ProjectReference Include="..\NetworkManagmentAPI.Data\NetworkManagmentAPI.Data.csproj" />

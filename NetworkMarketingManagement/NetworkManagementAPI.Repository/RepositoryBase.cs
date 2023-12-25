@@ -18,17 +18,17 @@ namespace NetworkManagementAPI.Repository
         public async Task AddAsync(T entity) => await _dbSet.AddAsync(entity);
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter, string includeProperties = null)
         {
+            IQueryable<T> query = _dbSet;
+
             if (!string.IsNullOrWhiteSpace(includeProperties))
             {
-                IQueryable<T> query = _dbSet;
-
                 foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProperty);
                 }
             }
 
-            var entities = await _dbSet.Where(filter).ToListAsync();
+            var entities = await query.Where(filter).ToListAsync();
             return entities;
         }
         public async Task<List<T>> GetAllAsync(string includeProperties = null)
