@@ -9,5 +9,17 @@ namespace NetworkManagementAPI.Repository
         public DistributorRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public void DecreaseRecomendation(Distributor distributor)
+        {
+            if (distributor != null)
+                distributor.RecomendationsCount -= 1;
+        }
+
+        public void IncreaseRecomendation(Distributor distributor)
+        {
+            if (distributor != null)
+                distributor.RecomendationsCount += 1;
+        }
     }
 }

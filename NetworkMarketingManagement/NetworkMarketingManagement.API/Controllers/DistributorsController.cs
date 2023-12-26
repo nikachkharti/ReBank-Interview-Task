@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetworkManagementAPI.Entities;
 using NetworkManagementAPI.Models;
@@ -39,26 +38,27 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
 
-        [HttpPost("adddistributor")]
+        [HttpPost]
         public async Task<ActionResult> AddDistributor([FromBody] AddDistributorDTO model)
         {
             try
             {
                 var recomendator = await _repository.Distributor.GetAsync(x => x.Id == model.RecomendatorId);
 
-                if (recomendator == null)
+
+                if (model.RecomendatorId != 0 && recomendator == null)
                     return BadRequest("Invalid recomendator passed");
 
-                if (recomendator.RecomendationsCount == 3)
-                    return BadRequest("Recomendations limit reached");
+                if (recomendator != null && recomendator.RecomendationsCount == 3)
+                    return BadRequest("Direct recomendations limit reached");
 
 
                 var newDistributor = _mapper.Map<Distributor>(model);
                 await _repository.Distributor.AddAsync(newDistributor);
-                //TODO update recomendator RecomendationCount in database increase it ++
+                _repository.Distributor.IncreaseRecomendation(recomendator);
                 await _repository.Save();
 
-                return Ok(newDistributor);
+                return Ok(model);
             }
             catch (Exception ex)
             {
@@ -80,10 +80,13 @@ namespace NetworkMarketingManagement.API.Controllers
                 if (distributorToRemove == null)
                     return NotFound("Distributor with passed id not found");
 
+                var recomendator = await _repository.Distributor.GetAsync(x => x.Id == distributorToRemove.RecomendatorId);
+
                 _repository.Distributor.Remove(distributorToRemove);
+                _repository.Distributor.DecreaseRecomendation(recomendator);
                 await _repository.Save();
 
-                return Ok(distributorToRemove);
+                return Ok();
             }
             catch (Exception ex)
             {
