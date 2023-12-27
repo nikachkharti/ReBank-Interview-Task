@@ -170,8 +170,19 @@ namespace NetworkMarketingManagement.API.Controllers
                     return _response;
                 }
 
-                var recomendator = await _repository.Distributor.GetAsync(x => x.Id == distributorToRemove.RecomendatorId);
+                //IMAGE DELELTE LOGIC
+                if (!string.IsNullOrEmpty(distributorToRemove.Image))
+                {
+                    var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, distributorToRemove.Image.TrimStart('/'));
 
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+
+                var recomendator = await _repository.Distributor.GetAsync(x => x.Id == distributorToRemove.RecomendatorId);
                 _repository.Distributor.Remove(distributorToRemove);
                 _repository.Distributor.DecreaseRecomendation(recomendator);
                 await _repository.Distributor.DecreaseSubRecomendation(recomendator);
