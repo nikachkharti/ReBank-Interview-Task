@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetworkManagementAPI.Entities;
 using NetworkManagementAPI.Models;
 using NetworkManagementAPI.Repository.Interfaces;
+using System.Net;
 
 namespace NetworkMarketingManagement.API.Controllers
 {
@@ -12,47 +13,85 @@ namespace NetworkMarketingManagement.API.Controllers
     {
         private readonly IRepositoryFactory _repository;
         private readonly IMapper _mapper;
+        private APIResponse _response;
         public DistributorsController(IMapper mapper, IRepositoryFactory repository)
         {
             _repository = repository;
             _mapper = mapper;
+            _response = new();
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<DistributorDTO>>> GetAllDistributors()
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<APIResponse>> GetAllDistributors()
         {
             try
             {
                 var distributors = await _repository.Distributor.GetAllAsync(includeProperties: "Addresses,ContactInfos,PersonalIdentifiers,DistributorSells,DistributorSells.Product");
 
                 if (distributors.Count <= 0)
-                    return NoContent();
+                {
+                    _response.StatusCode = HttpStatusCode.NoContent;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Distributors content not found" };
+
+                    return _response;
+                }
 
                 var result = _mapper.Map<List<DistributorDTO>>(distributors);
-                return Ok(result);
+
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = result;
+                _response.ErrorMessages = null;
+
+                return _response;
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+                _response.Result = null;
+                _response.ErrorMessages = new List<string>() { ex.Message };
+
+                return _response;
             }
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> AddDistributor([FromBody] AddDistributorDTO model)
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<APIResponse>> AddDistributor([FromBody] AddDistributorDTO model)
         {
             try
             {
                 var recomendator = await _repository.Distributor.GetAsync(x => x.Id == model.RecomendatorId);
 
                 if (model.RecomendatorId != 0 && recomendator == null)
-                    return BadRequest("Invalid recomendator passed");
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Invalid recomendator passed" };
 
+                    return _response;
+                }
                 else
                 {
                     if (recomendator != null && recomendator.RecomendationsCount == 3)
                     {
-                        return BadRequest("Direct recomendations limit reached");
+                        _response.StatusCode = HttpStatusCode.BadRequest;
+                        _response.IsSuccess = false;
+                        _response.Result = null;
+                        _response.ErrorMessages = new List<string>() { "Direct recomendations limit reached" };
+
+                        return _response;
                     }
                     else
                     {
@@ -61,32 +100,59 @@ namespace NetworkMarketingManagement.API.Controllers
                     await _repository.Distributor.IncreaseSubRecomendation(recomendator);
                 }
 
-
                 var newDistributor = _mapper.Map<Distributor>(model);
                 await _repository.Distributor.AddAsync(newDistributor);
                 await _repository.Save();
 
-                return Ok(model);
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = model;
+                _response.ErrorMessages = null;
+
+                return _response;
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+                _response.Result = null;
+                _response.ErrorMessages = new List<string>() { ex.Message };
+
+                return _response;
             }
         }
 
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> DeleteDistributor([FromRoute] int id)
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<APIResponse>> DeleteDistributor([FromRoute] int id)
         {
             try
             {
                 if (id <= 0)
-                    return BadRequest("Invalid id parameter passed");
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Invalid id parameter passed" };
+
+                    return _response;
+                }
 
                 var distributorToRemove = await _repository.Distributor.GetAsync(x => x.Id == id);
 
                 if (distributorToRemove == null)
-                    return NotFound("Distributor with passed id not found");
+                {
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Distributor with passed id not found" };
+
+                    return _response;
+                }
 
                 var recomendator = await _repository.Distributor.GetAsync(x => x.Id == distributorToRemove.RecomendatorId);
 
@@ -95,11 +161,21 @@ namespace NetworkMarketingManagement.API.Controllers
                 await _repository.Distributor.DecreaseSubRecomendation(recomendator);
                 await _repository.Save();
 
-                return Ok();
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = distributorToRemove;
+                _response.ErrorMessages = null;
+
+                return _response;
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+                _response.Result = null;
+                _response.ErrorMessages = new List<string>() { ex.Message };
+
+                return _response;
             }
         }
     }
