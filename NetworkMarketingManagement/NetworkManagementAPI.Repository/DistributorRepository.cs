@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetworkManagementAPI.Entities;
+using NetworkManagementAPI.Repository.CustomExceptions;
 using NetworkManagementAPI.Repository.Interfaces;
 using NetworkManagmentAPI.Data;
 
@@ -38,7 +39,7 @@ namespace NetworkManagementAPI.Repository
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Incidirect limit of recomendations reached");
+                    throw new IndirectRecomendationLimitException();
                 }
             }
         }
@@ -57,7 +58,7 @@ namespace NetworkManagementAPI.Repository
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Incidirect limit of recomendations reached");
+                    throw new IndirectRecomendationLimitException();
                 }
             }
         }
