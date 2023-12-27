@@ -41,6 +41,13 @@ namespace NetworkManagementAPI.Models
         /// How many recomendations distributor have.
         /// </summary>
         public int RecomendationsCount { get; set; }
+
+        /// <summary>
+        /// How many recomendations distributors children have max limit should be 121.
+        /// </summary>
+        /// 
+        [Range(0, 121)]
+        public int SubRecomendationsCount { get; set; }
         public virtual ICollection<GetAddressDTO> Addresses { get; set; }
         public virtual ICollection<GetContactInfoDTO> ContactInfos { get; set; }
         public virtual ICollection<GetPersonalIdentifierDTO> PersonalIdentifiers { get; set; }

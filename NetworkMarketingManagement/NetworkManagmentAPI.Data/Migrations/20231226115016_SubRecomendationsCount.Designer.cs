@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetworkManagmentAPI.Data;
 
@@ -11,9 +12,11 @@ using NetworkManagmentAPI.Data;
 namespace NetworkManagmentAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231226115016_SubRecomendationsCount")]
+    partial class SubRecomendationsCount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,7 +281,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 1,
                             DistributorId = 1,
                             ProductId = 1,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2630),
+                            SellDate = new DateTime(2023, 12, 26, 15, 50, 15, 812, DateTimeKind.Local).AddTicks(8198),
                             SellsCount = 1,
                             TotalPrice = 1549m
                         },
@@ -287,7 +290,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 2,
                             DistributorId = 2,
                             ProductId = 2,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2639),
+                            SellDate = new DateTime(2023, 12, 26, 15, 50, 15, 812, DateTimeKind.Local).AddTicks(8207),
                             SellsCount = 3,
                             TotalPrice = 4347m
                         },
@@ -296,7 +299,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 3,
                             DistributorId = 2,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2641),
+                            SellDate = new DateTime(2023, 12, 26, 15, 50, 15, 812, DateTimeKind.Local).AddTicks(8209),
                             SellsCount = 1,
                             TotalPrice = 1449m
                         },
@@ -305,7 +308,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 4,
                             DistributorId = 3,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2686),
+                            SellDate = new DateTime(2023, 12, 26, 15, 50, 15, 812, DateTimeKind.Local).AddTicks(8210),
                             SellsCount = 2,
                             TotalPrice = 5000m
                         });
@@ -435,28 +438,28 @@ namespace NetworkManagmentAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "62af99d6-0447-4862-8caf-53fbb34f8b2b",
+                            Code = "37483773-8a9d-448a-bb28-9ea72a069a47",
                             Price = 1549m,
                             Title = "Iphone 12"
                         },
                         new
                         {
                             Id = 2,
-                            Code = "92c18649-1027-45d1-8b29-e9848ea38cb9",
+                            Code = "4c3a01e7-a9e1-451c-bb67-14562fda1769",
                             Price = 1449m,
                             Title = "Iphone 11"
                         },
                         new
                         {
                             Id = 3,
-                            Code = "a09e0285-33d4-4e1a-b1e7-5698c56c0491",
+                            Code = "b1ca95c6-8ffb-46e0-9de3-8a2364c56eee",
                             Price = 1349m,
                             Title = "Iphone X"
                         },
                         new
                         {
                             Id = 4,
-                            Code = "212d7c1f-f5de-47d8-8819-4d7aa297c38e",
+                            Code = "eaf41cf3-4824-4810-b650-87f5855a08f1",
                             Price = 2500m,
                             Title = "PS5"
                         });

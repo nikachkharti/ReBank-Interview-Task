@@ -39,8 +39,15 @@ namespace NetworkManagementAPI.Entities
         public int RecomendatorId { get; set; }
 
         /// <summary>
+        /// How many recomendations distributor have max limit should be 3
+        /// </summary>
+        public int RecomendationsCount { get; set; }
+
+        /// <summary>
         /// How many recomendations distributors children have max limit should be 121.
         /// </summary>
+        /// 
+        [Range(0, 121)]
         public int SubRecomendationsCount { get; set; }
         public virtual ICollection<PersonalIdentifier> PersonalIdentifiers { get; set; }
         public virtual ICollection<ContactInfo> ContactInfos { get; set; }

@@ -32,7 +32,8 @@ namespace NetworkManagmentAPI.Data
                         Gender = Gender.Male,
                         Image = null,
                         RecomendatorId = 0,
-                        RecomendationsCount = 0
+                        RecomendationsCount = 0,
+                        SubRecomendationsCount = 0
                     },
                     new Distributor
                     {
@@ -43,7 +44,8 @@ namespace NetworkManagmentAPI.Data
                         Gender = Gender.Male,
                         Image = null,
                         RecomendatorId = 0,
-                        RecomendationsCount = 0
+                        RecomendationsCount = 0,
+                        SubRecomendationsCount = 0
                     },
                     new Distributor
                     {
@@ -54,7 +56,8 @@ namespace NetworkManagmentAPI.Data
                         Gender = Gender.Female,
                         Image = null,
                         RecomendatorId = 0,
-                        RecomendationsCount = 0
+                        RecomendationsCount = 0,
+                        SubRecomendationsCount = 0
                     }
                 );
 

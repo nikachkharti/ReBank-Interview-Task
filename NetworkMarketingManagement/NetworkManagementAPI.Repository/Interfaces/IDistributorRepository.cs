@@ -6,5 +6,7 @@ namespace NetworkManagementAPI.Repository.Interfaces
     {
         void IncreaseRecomendation(Distributor distributor);
         void DecreaseRecomendation(Distributor distributor);
+        Task DecreaseSubRecomendation(Distributor distributor);
+        Task IncreaseSubRecomendation(Distributor distributor);
     }
 }

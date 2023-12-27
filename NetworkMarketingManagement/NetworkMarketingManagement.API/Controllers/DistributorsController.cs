@@ -45,17 +45,25 @@ namespace NetworkMarketingManagement.API.Controllers
             {
                 var recomendator = await _repository.Distributor.GetAsync(x => x.Id == model.RecomendatorId);
 
-
                 if (model.RecomendatorId != 0 && recomendator == null)
                     return BadRequest("Invalid recomendator passed");
 
-                if (recomendator != null && recomendator.RecomendationsCount == 3)
-                    return BadRequest("Direct recomendations limit reached");
+                else
+                {
+                    if (recomendator != null && recomendator.RecomendationsCount == 3)
+                    {
+                        return BadRequest("Direct recomendations limit reached");
+                    }
+                    else
+                    {
+                        _repository.Distributor.IncreaseRecomendation(recomendator);
+                    }
+                    await _repository.Distributor.IncreaseSubRecomendation(recomendator);
+                }
 
 
                 var newDistributor = _mapper.Map<Distributor>(model);
                 await _repository.Distributor.AddAsync(newDistributor);
-                _repository.Distributor.IncreaseRecomendation(recomendator);
                 await _repository.Save();
 
                 return Ok(model);
@@ -84,6 +92,7 @@ namespace NetworkMarketingManagement.API.Controllers
 
                 _repository.Distributor.Remove(distributorToRemove);
                 _repository.Distributor.DecreaseRecomendation(recomendator);
+                await _repository.Distributor.DecreaseSubRecomendation(recomendator);
                 await _repository.Save();
 
                 return Ok();
