@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using NetworkManagementAPI.Entities;
 using NetworkManagementAPI.Models;
 using NetworkManagementAPI.Repository.Interfaces;
@@ -13,11 +14,13 @@ namespace NetworkMarketingManagement.API.Controllers
     {
         private readonly IRepositoryFactory _repository;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private APIResponse _response;
-        public DistributorsController(IMapper mapper, IRepositoryFactory repository)
+        public DistributorsController(IMapper mapper, IRepositoryFactory repository, IWebHostEnvironment hostingEnvironment)
         {
             _repository = repository;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
             _response = new();
         }
 
@@ -67,7 +70,7 @@ namespace NetworkMarketingManagement.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<APIResponse>> AddDistributor([FromBody] AddDistributorDTO model)
+        public async Task<ActionResult<APIResponse>> AddDistributor([FromForm] AddDistributorDTO model)
         {
             try
             {
@@ -101,6 +104,19 @@ namespace NetworkMarketingManagement.API.Controllers
                 }
 
                 var newDistributor = _mapper.Map<Distributor>(model);
+
+                //FILE UPLOAD LOGIC
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
+                    var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", uniqueFileName);
+                    using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(fileStream);
+                    }
+                    newDistributor.Image = "/images/" + uniqueFileName;
+                }
+
                 await _repository.Distributor.AddAsync(newDistributor);
                 await _repository.Save();
 
@@ -178,5 +194,11 @@ namespace NetworkMarketingManagement.API.Controllers
                 return _response;
             }
         }
+
+
+
+
+
+
     }
 }

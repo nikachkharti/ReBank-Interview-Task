@@ -1,6 +1,7 @@
 ﻿using NetworkManagementAPI.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace NetworkManagementAPI.Models
 {
@@ -27,8 +28,7 @@ namespace NetworkManagementAPI.Models
         /// </summary>
         [Required]
         public Gender Gender { get; set; }
-
-        public string Image { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         /// <summary>
         /// Who is recomendator of current distributor while registration.

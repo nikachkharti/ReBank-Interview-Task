@@ -22,4 +22,8 @@
 	  <ProjectReference Include="..\NetworkManagmentAPI.Data\NetworkManagmentAPI.Data.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\images\" />
+	</ItemGroup>
+
 </Project>
