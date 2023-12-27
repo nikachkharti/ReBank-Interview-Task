@@ -8,15 +8,10 @@ namespace NetworkManagementAPI.Models
     {
         public int Id { get; set; }
 
-        //[ForeignKey(nameof(Distributor))]
-        //public int DistributorId { get; set; }
-        //public DistributorDTO Distributor { get; set; }
+        public GetDistributorDTOForSelling Distributor { get; set; }
 
         public DateTime SellDate { get; set; }
 
-
-        [ForeignKey(nameof(Product))]
-        public int ProductId { get; set; }
         public GetProductDTO Product { get; set; }
 
         [Required]

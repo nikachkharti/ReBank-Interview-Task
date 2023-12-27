@@ -9,6 +9,7 @@ namespace NetworkMarketingManagement.API
         public MappingProfile()
         {
             CreateMap<Distributor, DistributorDTO>();
+            CreateMap<Distributor, GetDistributorDTOForSelling>();
             CreateMap<AddDistributorDTO, Distributor>();
 
             CreateMap<Address, GetAddressDTO>();
