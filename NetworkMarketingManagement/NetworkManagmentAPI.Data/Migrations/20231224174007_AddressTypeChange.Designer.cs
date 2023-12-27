@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetworkManagmentAPI.Data;
 
@@ -11,9 +12,11 @@ using NetworkManagmentAPI.Data;
 namespace NetworkManagmentAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224174007_AddressTypeChange")]
+    partial class AddressTypeChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +38,8 @@ namespace NetworkManagmentAPI.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("AddressType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("AddressType")
+                        .HasColumnType("int");
 
                     b.Property<int>("DistributorId")
                         .HasColumnType("int");
@@ -53,35 +55,35 @@ namespace NetworkManagmentAPI.Data.Migrations
                         {
                             Id = 1,
                             AddressName = "Rustaveli 5",
-                            AddressType = "Actual",
+                            AddressType = 0,
                             DistributorId = 1
                         },
                         new
                         {
                             Id = 2,
                             AddressName = "Rustaveli 6",
-                            AddressType = "Legal",
+                            AddressType = 1,
                             DistributorId = 1
                         },
                         new
                         {
                             Id = 3,
                             AddressName = "Pekini 21",
-                            AddressType = "Actual",
+                            AddressType = 0,
                             DistributorId = 2
                         },
                         new
                         {
                             Id = 4,
                             AddressName = "Kostava 13",
-                            AddressType = "Actual",
+                            AddressType = 0,
                             DistributorId = 3
                         },
                         new
                         {
                             Id = 5,
                             AddressName = "Tsereteli 5",
-                            AddressType = "Legal",
+                            AddressType = 1,
                             DistributorId = 3
                         });
                 });
@@ -99,9 +101,8 @@ namespace NetworkManagmentAPI.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ContactType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("ContactType")
+                        .HasColumnType("int");
 
                     b.Property<int>("DistributorId")
                         .HasColumnType("int");
@@ -117,49 +118,49 @@ namespace NetworkManagmentAPI.Data.Migrations
                         {
                             Id = 1,
                             ContactNumber = "555338877",
-                            ContactType = "Telephone",
+                            ContactType = 1,
                             DistributorId = 1
                         },
                         new
                         {
                             Id = 2,
                             ContactNumber = "giorgigiorgadze@gmail.com",
-                            ContactType = "Email",
+                            ContactType = 3,
                             DistributorId = 1
                         },
                         new
                         {
                             Id = 3,
                             ContactNumber = "davit123@gmail.com",
-                            ContactType = "Email",
+                            ContactType = 3,
                             DistributorId = 2
                         },
                         new
                         {
                             Id = 4,
                             ContactNumber = "551448877",
-                            ContactType = "Mobile",
+                            ContactType = 2,
                             DistributorId = 2
                         },
                         new
                         {
                             Id = 5,
                             ContactNumber = "558776932",
-                            ContactType = "Mobile",
+                            ContactType = 2,
                             DistributorId = 3
                         },
                         new
                         {
                             Id = 6,
                             ContactNumber = "anano@yahoo.com",
-                            ContactType = "Email",
+                            ContactType = 3,
                             DistributorId = 3
                         },
                         new
                         {
                             Id = 7,
                             ContactNumber = "123879",
-                            ContactType = "Fax",
+                            ContactType = 4,
                             DistributorId = 3
                         });
                 });
@@ -180,9 +181,8 @@ namespace NetworkManagmentAPI.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -198,9 +198,6 @@ namespace NetworkManagmentAPI.Data.Migrations
                     b.Property<int>("RecomendatorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubRecomendationsCount")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Distributors");
@@ -211,33 +208,30 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 1,
                             BirthDate = new DateTime(1995, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Giorgi",
-                            Gender = "Male",
+                            Gender = 1,
                             LastName = "Giorgadze",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         },
                         new
                         {
                             Id = 2,
                             BirthDate = new DateTime(2000, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Davit",
-                            Gender = "Male",
+                            Gender = 1,
                             LastName = "Davitidze",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         },
                         new
                         {
                             Id = 3,
                             BirthDate = new DateTime(1997, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Anano",
-                            Gender = "Female",
+                            Gender = 2,
                             LastName = "Ananiashvili",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         });
                 });
 
@@ -278,7 +272,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 1,
                             DistributorId = 1,
                             ProductId = 1,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2630),
+                            SellDate = new DateTime(2023, 12, 24, 21, 40, 6, 806, DateTimeKind.Local).AddTicks(4979),
                             SellsCount = 1,
                             TotalPrice = 1549m
                         },
@@ -287,7 +281,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 2,
                             DistributorId = 2,
                             ProductId = 2,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2639),
+                            SellDate = new DateTime(2023, 12, 24, 21, 40, 6, 806, DateTimeKind.Local).AddTicks(4995),
                             SellsCount = 3,
                             TotalPrice = 4347m
                         },
@@ -296,7 +290,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 3,
                             DistributorId = 2,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2641),
+                            SellDate = new DateTime(2023, 12, 24, 21, 40, 6, 806, DateTimeKind.Local).AddTicks(4997),
                             SellsCount = 1,
                             TotalPrice = 1449m
                         },
@@ -305,7 +299,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 4,
                             DistributorId = 3,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2686),
+                            SellDate = new DateTime(2023, 12, 24, 21, 40, 6, 806, DateTimeKind.Local).AddTicks(4999),
                             SellsCount = 2,
                             TotalPrice = 5000m
                         });
@@ -330,9 +324,8 @@ namespace NetworkManagmentAPI.Data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("DocumentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("DocumentType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("Date");
@@ -361,7 +354,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 1,
                             DocumentNumber = "123",
                             DocumentSeries = "12345678",
-                            DocumentType = "IDCard",
+                            DocumentType = 1,
                             ExpireDate = new DateTime(2021, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IssuingAuthority = "Justice house",
                             PersonalNumber = "0102487452",
@@ -373,7 +366,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 1,
                             DocumentNumber = "332",
                             DocumentSeries = "115632",
-                            DocumentType = "Passport",
+                            DocumentType = 2,
                             ExpireDate = new DateTime(2015, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IssuingAuthority = "Justice house",
                             PersonalNumber = "012589632",
@@ -385,7 +378,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 2,
                             DocumentNumber = "125",
                             DocumentSeries = "115633",
-                            DocumentType = "IDCard",
+                            DocumentType = 1,
                             ExpireDate = new DateTime(2015, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IssuingAuthority = "Justice house",
                             PersonalNumber = "41587463983",
@@ -397,7 +390,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 3,
                             DocumentNumber = "658",
                             DocumentSeries = "215633",
-                            DocumentType = "Passport",
+                            DocumentType = 2,
                             ExpireDate = new DateTime(2015, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IssuingAuthority = "Justice house",
                             PersonalNumber = "158965822",
@@ -435,28 +428,28 @@ namespace NetworkManagmentAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "62af99d6-0447-4862-8caf-53fbb34f8b2b",
+                            Code = "fde11106-1ded-46ff-a260-dfffb3937ee5",
                             Price = 1549m,
                             Title = "Iphone 12"
                         },
                         new
                         {
                             Id = 2,
-                            Code = "92c18649-1027-45d1-8b29-e9848ea38cb9",
+                            Code = "fca28664-4a50-408b-9c42-a14b38da5d2a",
                             Price = 1449m,
                             Title = "Iphone 11"
                         },
                         new
                         {
                             Id = 3,
-                            Code = "a09e0285-33d4-4e1a-b1e7-5698c56c0491",
+                            Code = "591efb1c-581b-451f-b543-a4a9484a8724",
                             Price = 1349m,
                             Title = "Iphone X"
                         },
                         new
                         {
                             Id = 4,
-                            Code = "212d7c1f-f5de-47d8-8819-4d7aa297c38e",
+                            Code = "98f29a38-c0c0-436c-9077-b017143f8cc2",
                             Price = 2500m,
                             Title = "PS5"
                         });

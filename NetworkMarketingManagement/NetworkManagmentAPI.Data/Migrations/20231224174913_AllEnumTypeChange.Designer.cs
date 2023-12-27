@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetworkManagmentAPI.Data;
 
@@ -11,9 +12,11 @@ using NetworkManagmentAPI.Data;
 namespace NetworkManagmentAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224174913_AllEnumTypeChange")]
+    partial class AllEnumTypeChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,9 +201,6 @@ namespace NetworkManagmentAPI.Data.Migrations
                     b.Property<int>("RecomendatorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubRecomendationsCount")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Distributors");
@@ -214,8 +214,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Gender = "Male",
                             LastName = "Giorgadze",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         },
                         new
                         {
@@ -225,8 +224,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Gender = "Male",
                             LastName = "Davitidze",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         },
                         new
                         {
@@ -236,8 +234,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Gender = "Female",
                             LastName = "Ananiashvili",
                             RecomendationsCount = 0,
-                            RecomendatorId = 0,
-                            SubRecomendationsCount = 0
+                            RecomendatorId = 0
                         });
                 });
 
@@ -278,7 +275,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 1,
                             DistributorId = 1,
                             ProductId = 1,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2630),
+                            SellDate = new DateTime(2023, 12, 24, 21, 49, 13, 293, DateTimeKind.Local).AddTicks(7233),
                             SellsCount = 1,
                             TotalPrice = 1549m
                         },
@@ -287,7 +284,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 2,
                             DistributorId = 2,
                             ProductId = 2,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2639),
+                            SellDate = new DateTime(2023, 12, 24, 21, 49, 13, 293, DateTimeKind.Local).AddTicks(7242),
                             SellsCount = 3,
                             TotalPrice = 4347m
                         },
@@ -296,7 +293,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 3,
                             DistributorId = 2,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2641),
+                            SellDate = new DateTime(2023, 12, 24, 21, 49, 13, 293, DateTimeKind.Local).AddTicks(7244),
                             SellsCount = 1,
                             TotalPrice = 1449m
                         },
@@ -305,7 +302,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             Id = 4,
                             DistributorId = 3,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 27, 15, 48, 7, 190, DateTimeKind.Local).AddTicks(2686),
+                            SellDate = new DateTime(2023, 12, 24, 21, 49, 13, 293, DateTimeKind.Local).AddTicks(7245),
                             SellsCount = 2,
                             TotalPrice = 5000m
                         });
@@ -435,28 +432,28 @@ namespace NetworkManagmentAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "62af99d6-0447-4862-8caf-53fbb34f8b2b",
+                            Code = "3e2004e7-ddfb-4634-8f5a-10418588be41",
                             Price = 1549m,
                             Title = "Iphone 12"
                         },
                         new
                         {
                             Id = 2,
-                            Code = "92c18649-1027-45d1-8b29-e9848ea38cb9",
+                            Code = "d65141d4-fa67-49e6-b41e-21103490e27b",
                             Price = 1449m,
                             Title = "Iphone 11"
                         },
                         new
                         {
                             Id = 3,
-                            Code = "a09e0285-33d4-4e1a-b1e7-5698c56c0491",
+                            Code = "6848964f-b790-4129-bfe2-b001e6f8ebb7",
                             Price = 1349m,
                             Title = "Iphone X"
                         },
                         new
                         {
                             Id = 4,
-                            Code = "212d7c1f-f5de-47d8-8819-4d7aa297c38e",
+                            Code = "c3210dd9-fee5-4703-bbfd-3333cf7a6514",
                             Price = 2500m,
                             Title = "PS5"
                         });

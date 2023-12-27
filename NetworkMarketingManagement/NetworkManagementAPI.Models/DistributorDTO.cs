@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NetworkManagementAPI.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace NetworkManagementAPI.Entities
+namespace NetworkManagementAPI.Models
 {
-    public class Distributor
+    public class DistributorDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -39,7 +38,7 @@ namespace NetworkManagementAPI.Entities
         public int RecomendatorId { get; set; }
 
         /// <summary>
-        /// How many recomendations distributor have max limit should be 3
+        /// How many recomendations distributor have.
         /// </summary>
         public int RecomendationsCount { get; set; }
 
@@ -49,9 +48,10 @@ namespace NetworkManagementAPI.Entities
         /// 
         [Range(0, 121)]
         public int SubRecomendationsCount { get; set; }
-        public virtual ICollection<PersonalIdentifier> PersonalIdentifiers { get; set; }
-        public virtual ICollection<ContactInfo> ContactInfos { get; set; }
-        public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<DistributorSell> DistributorSells { get; set; }
+        public virtual ICollection<GetAddressDTO> Addresses { get; set; }
+        public virtual ICollection<GetContactInfoDTO> ContactInfos { get; set; }
+        public virtual ICollection<GetPersonalIdentifierDTO> PersonalIdentifiers { get; set; }
+        public virtual ICollection<GetDistributorSellDTO> DistributorSells { get; set; }
+
     }
 }

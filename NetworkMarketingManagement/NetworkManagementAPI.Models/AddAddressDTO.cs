@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NetworkManagementAPI.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace NetworkManagementAPI.Entities
+namespace NetworkManagementAPI.Models
 {
-    public class Address
+    public class AddAddressDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         [Column(TypeName = "nvarchar(50)")]
         [EnumDataType(typeof(AddressType))]
         [Required]
@@ -21,11 +18,9 @@ namespace NetworkManagementAPI.Entities
         [Required]
         [MaxLength(100)]
         public string AddressName { get; set; }
-
-
-        [ForeignKey(nameof(Distributor))]
-        [Required]
-        public int DistributorId { get; set; }
-        public virtual Distributor Distributor { get; set; }
+        //[ForeignKey(nameof(Distributor))]
+        //[Required]
+        //public int DistributorId { get; set; }
+        //public virtual Distributor Distributor { get; set; }
     }
 }

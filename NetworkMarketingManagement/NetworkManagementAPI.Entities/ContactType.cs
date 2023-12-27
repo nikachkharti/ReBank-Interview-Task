@@ -1,10 +1,16 @@
-﻿namespace NetworkManagementAPI.Entities
+﻿using System.Runtime.Serialization;
+
+namespace NetworkManagementAPI.Entities
 {
     public enum ContactType
     {
-        Telephone = 1,
-        Mobile = 2,
-        Email = 3,
-        Fax = 4
+        [EnumMember(Value = "Telephone")]
+        Telephone,
+        [EnumMember(Value = "Mobile")]
+        Mobile,
+        [EnumMember(Value = "Email")]
+        Email,
+        [EnumMember(Value = "Fax")]
+        Fax
     }
 }

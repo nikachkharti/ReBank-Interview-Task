@@ -1,8 +1,12 @@
-﻿namespace NetworkManagementAPI.Entities
+﻿using System.Runtime.Serialization;
+
+namespace NetworkManagementAPI.Entities
 {
     public enum AddressType
     {
-        Actual = 1,
-        Legal = 2
+        [EnumMember(Value = "Actual")]
+        Actual,
+        [EnumMember(Value = "Legal")]
+        Legal
     }
 }
