@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NetworkManagementAPI.Entities;
 using NetworkManagementAPI.Models;
 using NetworkManagementAPI.Repository.Interfaces;
 using System.Net;
@@ -21,7 +22,10 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> GetAllDistributorSells()
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<APIResponse>> GetAllSells()
         {
             try
             {
@@ -58,6 +62,9 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
         [HttpGet("date")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<APIResponse>> GetAllSellsWithSpecificDate([FromHeader] DateTime sellingDate)
         {
             try
@@ -95,6 +102,9 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
         [HttpGet("product/{productId:int}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<APIResponse>> GetAllSellsWithSpecificProduct([FromRoute] int productId)
         {
             try
@@ -132,6 +142,9 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
         [HttpGet("distributor/{distributorId:int}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<APIResponse>> GetAllSellsWithSpecificDistributor([FromRoute] int distributorId)
         {
             try
@@ -168,6 +181,85 @@ namespace NetworkMarketingManagement.API.Controllers
             }
         }
 
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<APIResponse>> AddSell([FromBody] AddDistributorSellDTO distributorSellDTO)
+        {
+            try
+            {
+                if (distributorSellDTO == null)
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Invalid distributor sell passed" };
 
+                    return _response;
+                }
+
+                if (!await ProductExists(distributorSellDTO.ProductId))
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Product with passed id don't exists" };
+
+                    return _response;
+                }
+
+                if (!await DistributorExists(distributorSellDTO.ProductId))
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.Result = null;
+                    _response.ErrorMessages = new List<string>() { "Distributor with passed id don't exists" };
+
+                    return _response;
+                }
+
+                var result = _mapper.Map<DistributorSell>(distributorSellDTO);
+
+                result.TotalPrice = await GetProductPrice(distributorSellDTO.ProductId) * distributorSellDTO.SellsCount;
+                await _repository.DistributorSells.AddAsync(result);
+                await _repository.Save();
+
+
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = result;
+                _response.ErrorMessages = null;
+
+                return _response;
+            }
+            catch (Exception ex)
+            {
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+                _response.Result = null;
+                _response.ErrorMessages = new List<string>() { ex.Message };
+
+                return _response;
+            }
+        }
+
+        private async Task<decimal> GetProductPrice(int productId)
+        {
+            var result = await _repository.Product.GetAsync(x => x.Id == productId);
+            return result.Price;
+        }
+
+        private async Task<bool> ProductExists(int productId)
+        {
+            var result = await _repository.Product.GetAsync(x => x.Id == productId);
+            return result != null;
+        }
+
+        private async Task<bool> DistributorExists(int distributorId)
+        {
+            var result = await _repository.Distributor.GetAsync(x => x.Id == distributorId);
+            return result != null;
+        }
     }
 }
