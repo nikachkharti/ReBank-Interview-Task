@@ -26,5 +26,6 @@ namespace NetworkManagementAPI.Entities
 
         [Required]
         public int SellsCount { get; set; }
+        public bool IsProcessed { get; set; }
     }
 }

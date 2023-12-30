@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetworkManagmentAPI.Data;
 
@@ -11,9 +12,11 @@ using NetworkManagmentAPI.Data;
 namespace NetworkManagmentAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229211841_BonusHistorySeed")]
+    partial class BonusHistorySeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,6 +116,40 @@ namespace NetworkManagmentAPI.Data.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("BonusHistories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BonusAmount = 154.90m,
+                            DateCalculated = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1540),
+                            DistributorId = 1,
+                            SaleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BonusAmount = 434.70m,
+                            DateCalculated = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1543),
+                            DistributorId = 2,
+                            SaleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BonusAmount = 144.90m,
+                            DateCalculated = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1545),
+                            DistributorId = 2,
+                            SaleId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BonusAmount = 500m,
+                            DateCalculated = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1546),
+                            DistributorId = 3,
+                            SaleId = 4
+                        });
                 });
 
             modelBuilder.Entity("NetworkManagementAPI.Entities.ContactInfo", b =>
@@ -311,7 +348,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 1,
                             IsProcessed = false,
                             ProductId = 1,
-                            SellDate = new DateTime(2023, 12, 30, 10, 17, 44, 617, DateTimeKind.Local).AddTicks(3199),
+                            SellDate = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1514),
                             SellsCount = 1,
                             TotalPrice = 1549m
                         },
@@ -321,7 +358,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 2,
                             IsProcessed = false,
                             ProductId = 2,
-                            SellDate = new DateTime(2023, 12, 30, 10, 17, 44, 617, DateTimeKind.Local).AddTicks(3211),
+                            SellDate = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1523),
                             SellsCount = 3,
                             TotalPrice = 4347m
                         },
@@ -331,7 +368,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 2,
                             IsProcessed = false,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 30, 10, 17, 44, 617, DateTimeKind.Local).AddTicks(3213),
+                            SellDate = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1525),
                             SellsCount = 1,
                             TotalPrice = 1449m
                         },
@@ -341,7 +378,7 @@ namespace NetworkManagmentAPI.Data.Migrations
                             DistributorId = 3,
                             IsProcessed = false,
                             ProductId = 3,
-                            SellDate = new DateTime(2023, 12, 30, 10, 17, 44, 617, DateTimeKind.Local).AddTicks(3215),
+                            SellDate = new DateTime(2023, 12, 30, 1, 18, 41, 205, DateTimeKind.Local).AddTicks(1527),
                             SellsCount = 2,
                             TotalPrice = 5000m
                         });
@@ -468,28 +505,28 @@ namespace NetworkManagmentAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "6082bc05-2a93-46bc-832c-f91c98a16728",
+                            Code = "bd23cacc-585f-49cc-b9de-0fcaf162e016",
                             Price = 1549m,
                             Title = "Iphone 12"
                         },
                         new
                         {
                             Id = 2,
-                            Code = "ce9d4d5e-459c-465b-b050-c00a52d48aa1",
+                            Code = "8476553a-8200-4220-abd2-72ee50498646",
                             Price = 1449m,
                             Title = "Iphone 11"
                         },
                         new
                         {
                             Id = 3,
-                            Code = "361bbc76-36e5-48d0-8203-2407b9b593c9",
+                            Code = "ebd35711-e8d6-410e-93bb-0375f8651e19",
                             Price = 1349m,
                             Title = "Iphone X"
                         },
                         new
                         {
                             Id = 4,
-                            Code = "40c066c4-4928-4fe6-b0b4-240e4dda0e03",
+                            Code = "f048774d-a0cd-46b4-b12a-b6fd317ba020",
                             Price = 2500m,
                             Title = "PS5"
                         });

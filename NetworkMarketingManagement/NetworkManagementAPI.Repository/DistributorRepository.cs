@@ -25,7 +25,6 @@ namespace NetworkManagementAPI.Repository
             if (distributor != null)
                 distributor.RecomendationsCount += 1;
         }
-
         public async Task IncreaseSubRecomendation(Distributor distributor)
         {
             if (distributor != null)
@@ -62,7 +61,6 @@ namespace NetworkManagementAPI.Repository
                 }
             }
         }
-
         public async Task DecreaseSubRecomendation(Distributor distributor)
         {
             if (distributor != null)
@@ -73,7 +71,6 @@ namespace NetworkManagementAPI.Repository
                 await DecreaseAncestrySubRecomendations(distributor.RecomendatorId);
             }
         }
-
         private async Task DecreaseAncestrySubRecomendations(int recomendatorId)
         {
             var recomendator = await _context.Distributors.FirstOrDefaultAsync(x => x.Id == recomendatorId);
@@ -86,9 +83,5 @@ namespace NetworkManagementAPI.Repository
                 await DecreaseAncestrySubRecomendations(recomendator.RecomendatorId);
             }
         }
-
-
-
-
     }
 }

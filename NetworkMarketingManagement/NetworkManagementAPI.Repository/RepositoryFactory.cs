@@ -12,6 +12,7 @@ namespace NetworkManagementAPI.Repository
         public IPersonalIdentifierRepository PersonalIdentifier { get; private set; }
         public IProductRepository Product { get; private set; }
         public IDistributorSellsRepository DistributorSells { get; private set; }
+        public IBonusHistoryRepository BonusHistory { get; private set; }
 
         private readonly ApplicationDbContext _context;
 
@@ -24,6 +25,7 @@ namespace NetworkManagementAPI.Repository
             PersonalIdentifier = new PersonalIdentifierRepository(_context);
             Product = new ProductRepository(_context);
             DistributorSells = new DistributorSellsRepository(_context);
+            BonusHistory = new BonusHistoryRepository(_context);
         }
 
         public async Task Save() => await _context.SaveChangesAsync();
