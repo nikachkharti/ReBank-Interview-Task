@@ -15,12 +15,21 @@ namespace NetworkManagmentAPI.Data
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<DistributorSell> DistributorSells { get; set; }
+        public DbSet<BonusHistory> BonusHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
-                .HasIndex(x => x.Code)
-                .IsUnique();
+            modelBuilder.Entity<BonusHistory>()
+                .HasOne(b => b.Distributor)
+                .WithMany()
+                .HasForeignKey(b => b.DistributorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<BonusHistory>()
+                .HasOne(b => b.DistributorSell)
+                .WithMany()
+                .HasForeignKey(b => b.SaleId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Distributor>().HasData(
                     new Distributor
@@ -241,7 +250,8 @@ namespace NetworkManagmentAPI.Data
                         SellDate = DateTime.Now,
                         ProductId = 1,
                         SellsCount = 1,
-                        TotalPrice = 1549
+                        TotalPrice = 1549,
+                        IsProcessed = false
                     },
                     new DistributorSell
                     {
@@ -250,7 +260,8 @@ namespace NetworkManagmentAPI.Data
                         SellDate = DateTime.Now,
                         ProductId = 2,
                         SellsCount = 3,
-                        TotalPrice = 4347
+                        TotalPrice = 4347,
+                        IsProcessed = false
                     },
                     new DistributorSell
                     {
@@ -259,7 +270,8 @@ namespace NetworkManagmentAPI.Data
                         SellDate = DateTime.Now,
                         ProductId = 3,
                         SellsCount = 1,
-                        TotalPrice = 1449
+                        TotalPrice = 1449,
+                        IsProcessed = false
                     },
                     new DistributorSell
                     {
@@ -268,9 +280,45 @@ namespace NetworkManagmentAPI.Data
                         SellDate = DateTime.Now,
                         ProductId = 3,
                         SellsCount = 2,
-                        TotalPrice = 5000
+                        TotalPrice = 5000,
+                        IsProcessed = false
                     }
                 );
+
+            //modelBuilder.Entity<BonusHistory>().HasData(
+            //        new BonusHistory
+            //        {
+            //            Id = 1,
+            //            DistributorId = 1,
+            //            SaleId = 1,
+            //            DateCalculated = DateTime.Now,
+            //            BonusAmount = 154.90m
+            //        },
+            //        new BonusHistory
+            //        {
+            //            Id = 2,
+            //            DistributorId = 2,
+            //            SaleId = 2,
+            //            DateCalculated = DateTime.Now,
+            //            BonusAmount = 434.70m
+            //        },
+            //        new BonusHistory
+            //        {
+            //            Id = 3,
+            //            DistributorId = 2,
+            //            SaleId = 3,
+            //            DateCalculated = DateTime.Now,
+            //            BonusAmount = 144.90m
+            //        },
+            //        new BonusHistory
+            //        {
+            //            Id = 4,
+            //            DistributorId = 3,
+            //            SaleId = 4,
+            //            DateCalculated = DateTime.Now,
+            //            BonusAmount = 500
+            //        }
+            //    );
 
         }
     }

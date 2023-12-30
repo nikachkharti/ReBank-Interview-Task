@@ -8,6 +8,7 @@
         public IPersonalIdentifierRepository PersonalIdentifier { get; }
         public IProductRepository Product { get; }
         public IDistributorSellsRepository DistributorSells { get; }
+        public IBonusHistoryRepository BonusHistory { get; }
         Task Save();
     }
 }
