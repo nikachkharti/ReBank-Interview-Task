@@ -19,6 +19,8 @@ namespace NetworkMarketingManagement.API.Controllers
         }
 
         [HttpPost("calculate/{distributorId:int}")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<APIResponse>> CountDistributorBonus([FromRoute] int distributorId)
         {
             try
@@ -27,7 +29,6 @@ namespace NetworkMarketingManagement.API.Controllers
 
                 _response.StatusCode = HttpStatusCode.OK;
                 _response.IsSuccess = true;
-                _response.Result = null;
                 _response.ErrorMessages = null;
 
                 return _response;
